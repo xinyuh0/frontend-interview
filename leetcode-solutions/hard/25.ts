@@ -1,11 +1,3 @@
-class ListNode {
-    val: number
-    next: ListNode | null
-    constructor(val?: number, next?: ListNode | null) {
-        this.val = (val === undefined ? 0 : val)
-        this.next = (next === undefined ? null : next)
-    }
-}
 
 function reverseKGroup(head: ListNode | null, k: number): ListNode | null {
     if (k === 1) return head;
