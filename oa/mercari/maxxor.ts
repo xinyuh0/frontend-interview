@@ -1,4 +1,26 @@
-const maxXor = (lo: number, hi: number, k: number) => {};
+const maxXor = (lo: number, hi: number, k: number) => {
+  const m: Map<number, boolean> = new Map<number, boolean>();
+
+  for (let i = lo; i <= hi; i++) {
+    m.set(i, true);
+  }
+
+  let found = false;
+  for (let ans = k; ans >= 0; ans--) {
+    // a ^ b = x
+    // x ^ a = b
+    for (let i = lo; i <= hi; i++) {
+      if (m.has(ans ^ i)) {
+        found = true;
+        break;
+      }
+    }
+
+    if (found) {
+      return ans;
+    }
+  }
+};
 
 const bruteForce = (lo: number, hi: number, k: number) => {
   let ans = 0;
@@ -45,3 +67,4 @@ const main = () => {
 };
 
 main();
+// console.log(maxXor(3, 5, 6));
