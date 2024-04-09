@@ -1,23 +1,12 @@
 const maxXor = (lo: number, hi: number, k: number) => {
-  const m: Map<number, boolean> = new Map<number, boolean>();
-
-  for (let i = lo; i <= hi; i++) {
-    m.set(i, true);
-  }
-
-  let found = false;
   for (let ans = k; ans >= 0; ans--) {
     // a ^ b = x
     // x ^ a = b
     for (let i = lo; i <= hi; i++) {
-      if (m.has(ans ^ i)) {
-        found = true;
-        break;
+      let tmp = ans ^ i;
+      if (tmp >= lo && tmp <= hi) {
+        return ans;
       }
-    }
-
-    if (found) {
-      return ans;
     }
   }
 };

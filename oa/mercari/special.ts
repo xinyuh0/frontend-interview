@@ -75,12 +75,12 @@ const shortestPath = (N: number, X: number, Y: number) => {
     // O(N)
     if (numCircle % 2 === 0) {
       for (let j = 1; j <= numLargerThanY; j++) {
-        const dis = (numCircle + 2) / 2 + j;
+        let dis = (numCircle + 2) / 2 + j;
         nums[dis]++;
       }
 
       for (let j = 1; j <= numSmallerThanX; j++) {
-        const dis = (numCircle + 2) / 2 + j;
+        let dis = (numCircle + 2) / 2 + j;
         nums[dis]++;
       }
     }
