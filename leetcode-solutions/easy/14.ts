@@ -1,37 +1,49 @@
 function longestCommonPrefix(strs: string[]): string {
-  if (strs.length === 0) return "";
+  // Trie Tree
+  class TrieNode {
+    children: Map<string, TrieNode>;
+    isEndOfWord: boolean;
 
-  if (strs.length === 1) return strs[0];
-
-  let i = 0;
-  let ans = "";
-
-  while (true) {
-    let flag = true;
-    const c = strs[0][i];
-    for (let k = 1; k < strs.length; k++) {
-      const str = strs[k];
-
-      if (i >= str.length) {
-        flag = false;
-        break;
-      }
-
-      if (str[i] !== c) {
-        flag = false;
-        break;
-      }
+    constructor() {
+      this.children = new Map<string, TrieNode>();
+      this.isEndOfWord = false;
     }
-
-    if (!flag) {
-      break;
-    }
-
-    ans += c;
-    i++;
   }
 
-  return ans;
-}
+  class TrieTree {
+    root: TrieNode;
 
-longestCommonPrefix(["flower", "flow", "flight"]);
+    constructor() {
+      this.root = new TrieNode();
+    }
+
+    insert(word: string): void {
+      let node = this.root;
+      for (const c of word) {
+        if (!node.children.has(c)) {
+          node.children.set(c, new TrieNode());
+        }
+        node = node.children.get(c) as TrieNode;
+      }
+      node.isEndOfWord = true;
+    }
+
+    get longestPrefix(): string {
+      let node = this.root;
+      let prefix = "";
+      while (node.children.size === 1 && !node.isEndOfWord) {
+        const [key, next] = node.children.entries().next().value;
+        prefix += key;
+        node = next;
+      }
+      return prefix;
+    }
+  }
+
+  const trieTree = new TrieTree();
+  for (const word of strs) {
+    trieTree.insert(word);
+  }
+
+  return trieTree.longestPrefix;
+}
