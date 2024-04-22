@@ -1,4 +1,4 @@
-function main(argv: string[]) {
+function _main(argv: string[]) {
   const [S, N, K] = argv[0].split(" ").map((x) => Number(x));
 
   // Initialize the costs matrix
@@ -68,5 +68,3 @@ function main(argv: string[]) {
 
   console.log(ans);
 }
-
-main(process.argv.slice(2));
