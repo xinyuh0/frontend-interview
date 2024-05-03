@@ -14,4 +14,27 @@
 
 import { TreeNode } from "../../ds/binary-tree/binary-tree";
 
-function lcaDeepestLeaves(root: TreeNode | null): TreeNode | null {}
+function lcaDeepestLeaves(root: TreeNode | null): TreeNode | null {
+  let maxDepth: number = 0;
+  let ans: TreeNode | null = null;
+
+  const dfs = (node: TreeNode | null, depth: number): number => {
+    if (node === null) {
+      maxDepth = Math.max(maxDepth, depth);
+      return depth;
+    }
+
+    let lDepth = dfs(node.left, depth + 1);
+    let rDepth = dfs(node.right, depth + 1);
+
+    if (lDepth === maxDepth && rDepth === maxDepth) {
+      ans = node;
+    }
+
+    return Math.max(lDepth, rDepth);
+  };
+
+  dfs(root, 0);
+
+  return ans;
+}
